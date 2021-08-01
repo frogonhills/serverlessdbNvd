@@ -1,0 +1,101 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ct_datatempstation {
+  id            Int       @id @default(autoincrement())
+  insertiondate DateTime? @default(now()) @db.Timestamp(6)
+  jsondata      Json?     @db.Json
+}
+
+model ct_datatempstationb {
+  id            Int       @id @default(autoincrement())
+  insertiondate DateTime? @default(now()) @db.Timestamp(6)
+  jsondata      Json?
+}
+
+model rules_aws_config {
+  id              Int      @id @default(autoincrement())
+  domain          String   @db.VarChar(50)
+  service         String   @db.VarChar(40)
+  rule            String   @unique @db.VarChar(300)
+  ruledescription String?
+  risk            Int?     @db.SmallInt
+  fixavailable    Boolean?
+  priority        Int?     @db.SmallInt
+  taskremediation String?
+  fixby           Int?     @db.SmallInt
+}
+
+model rules_aws_custodian {
+  id              Int      @id @default(autoincrement())
+  domain          String   @db.VarChar(50)
+  service         String   @db.VarChar(40)
+  rule            String   @unique @db.VarChar(300)
+  ruledescription String?
+  risk            Int?     @db.SmallInt
+  fixavailable    Boolean?
+  priority        Int?     @db.SmallInt
+  taskremediation String?
+  fixby           Int?     @db.SmallInt
+}
+
+model rules_aws_guardd {
+  id                       Int      @id @default(autoincrement())
+  threadpurpose            String?
+  service                  String?  @db.VarChar(40)
+  threadpurposedescription String?
+  findingtype              String?
+  findingdescription       String?
+  risk                     String?  @db.VarChar(10)
+  fixavailable             Boolean?
+  priority                 Int?     @db.SmallInt
+  taskremediation          String?
+  fixby                    Int?     @db.SmallInt
+}
+
+model rules_aws_trusteda {
+  id              Int      @id @default(autoincrement())
+  domain          String   @db.VarChar(50)
+  service         String   @db.VarChar(40)
+  rule            String   @unique @db.VarChar(300)
+  ruledescription String?
+  risk            Int?     @db.SmallInt
+  fixavailable    Boolean?
+  priority        Int?     @db.SmallInt
+  taskremediation String?
+  fixby           Int?     @db.SmallInt
+}
+
+model rules_aws_waf {
+  id                         Int     @id @default(autoincrement())
+  source                     String? @db.VarChar(50)
+  rule_id                    String  @unique @db.VarChar(50)
+  domain                     String  @db.VarChar(50)
+  service                    String  @db.VarChar(40)
+  rule                       String  @unique @db.VarChar(300)
+  ruledescription            String?
+  waf_security               String? @db.VarChar(40)
+  waf_reliability            String? @db.VarChar(40)
+  waf_cost_optimization      String? @db.VarChar(40)
+  waf_performance_efficiency String? @db.VarChar(40)
+  waf_operational_excellence String? @db.VarChar(40)
+  cr_waf                     String? @db.VarChar(40)
+  cr_cisawsf                 String? @db.VarChar(40)
+  cr_gdpr                    String? @db.VarChar(40)
+  cr_pci                     String? @db.VarChar(40)
+  cr_hipaa                   String? @db.VarChar(40)
+  cr_apra                    String? @db.VarChar(40)
+  risk                       String? @db.VarChar(2)
+  fixavailable               String? @db.VarChar(1)
+  priority                   String? @db.VarChar(10)
+  urgency                    String? @db.VarChar(10)
+  taskremediation            String?
+  fixby                      Int?    @db.SmallInt
+}
